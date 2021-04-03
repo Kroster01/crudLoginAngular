@@ -1,5 +1,5 @@
-import { checkJwt } from "../middleware/jwt";
-import { checkRole } from "../middleware/role";
+import { checkJwt } from "../middlewares/jwt";
+import { checkRole } from "../middlewares/role";
 import { Router } from 'express';
 import { UserController } from '../controller/UserController';
 
