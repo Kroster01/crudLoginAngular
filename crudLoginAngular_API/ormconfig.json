@@ -1,18 +1,18 @@
 {
-    "type": "mysql",
-    "host": "92.249.45.155",
-    "port": 3306,
-    "username": "u466446141_dev_root",
-    "password": "Ge5]Kj2i?nA",
-    "database": "u466446141_login_node",
-    "synchronize": true,
-    "logging": false,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
-    "subscribers": ["src/subscriber/**/*.ts"],
-    "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-    }
+  "type": "mysql",
+  "host": "92.249.45.155",
+  "port": 3306,
+  "username": "u466446141_dev_root",
+  "password": "Ge5]Kj2i?nA",
+  "database": "u466446141_login_node",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/entity/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
   }
+}
