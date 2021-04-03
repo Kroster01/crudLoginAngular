@@ -1,7 +1,7 @@
-import { getRepository } from "typeorm";
-import { Request, Response } from "express";
-import { User } from "../entity/User";
-import { validate } from "class-validator";
+import { getRepository } from 'typeorm';
+import { Request, Response } from 'express';
+import { User } from '../entity/User';
+import { validate } from 'class-validator';
 
 export class UserController {
 
@@ -18,7 +18,7 @@ export class UserController {
         } else {
             res.status(404).json({ message: 'Not result.' });
         }
-    }
+    };
 
     static getById = async (req: Request, res: Response) => {
         const { id } = req.body;
@@ -40,7 +40,7 @@ export class UserController {
         user.role = role;
         // validate.
         const validateOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validateOpt );
+        const errors = await validate(user, validateOpt);
         if (errors.length > 0) {
             return res.status(400).json(errors);
         }
@@ -70,7 +70,7 @@ export class UserController {
             res.status(404).json({ message: 'User not Found' });
         }
         const validateOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validateOpt );
+        const errors = await validate(user, validateOpt);
         if (errors.length > 0) {
             return res.status(400).json(errors);
         }

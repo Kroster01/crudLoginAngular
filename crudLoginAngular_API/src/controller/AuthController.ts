@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
-import * as jwt from "jsonwebtoken";
-import config from "../config/config";
-import { validate } from "class-validator";
+import * as jwt from 'jsonwebtoken';
+import config from '../config/config';
+import { validate } from 'class-validator';
 
 class AuthController {
     static login = async (req: Request, res: Response) => {
@@ -21,11 +21,12 @@ class AuthController {
         }
         // check password
         if (!user.checkPassword(password)) {
-            return res.status(400).json({ message: "Username or Password are icorect!" });
+            return res.status(400).json({ message: 'Username or Password are icorect!' });
         }
         const token = jwt.sign({ userId: user.id, username: user.username }, config.jwtSecret, { expiresIn: '1h' });
         return res.json({ message: 'OK', code: 200, token });
-    }
+    };
+
     static changePassword = async (req: Request, res: Response) => {
         const { userId } = res.locals.jwtPayload;
         const { oldPassword, newPassword } = req.body;
@@ -58,6 +59,6 @@ class AuthController {
         }
         // All Okey
         res.send('Passwors Change.');
-    }
+    };
 }
 export default AuthController;

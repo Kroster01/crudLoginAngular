@@ -2,9 +2,12 @@ import { checkJwt } from "../middlewares/jwt";
 import { Router } from 'express';
 import AuthController from '../controller/AuthController';
 
-const routes = Router();
+const router = Router();
 
-routes.use('/login', AuthController.login);
-routes.use('/change-password', [checkJwt], AuthController.changePassword);
+// Login
+router.use('/login', AuthController.login);
 
-export default routes;
+// Change password
+router.use('/change-password', [checkJwt], AuthController.changePassword);
+
+export default router;
