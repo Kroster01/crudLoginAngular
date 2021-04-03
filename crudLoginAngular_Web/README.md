@@ -29,3 +29,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # dependencias extras
 
 npm i concurrently
+ng add @angular/material
+
+# Componentes
+
+ng g m pages/home -m=app --route home
+ng g c shared/components/header
+ng g c shared/components/footer
+ng g m pages/notFound -m=app --route notFound
+
+ng g m pages/admin -m=app --route admin
+ng g m pages/auth/login -m=app --route login
+
