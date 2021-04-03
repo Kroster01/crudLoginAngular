@@ -8,11 +8,13 @@ export class UserController {
     static getAll = async (req: Request, res: Response) => {
         const userRepository = getRepository(User);
         let users;
+
         try {
-            users = await userRepository.find();
+            users = await userRepository.find({ select: ['id', 'username', 'role'] });
         } catch (error) {
             res.status(404).json({ message: 'Something goes wrong.' });
         }
+
         if (users.length > 0) {
             res.send(users);
         } else {
@@ -31,33 +33,32 @@ export class UserController {
         }
     };
 
-    static newUser = async (req: Request, res: Response) => {
+    static new = async (req: Request, res: Response) => {
         const { username, password, role } = req.body;
         const user = new User();
 
         user.username = username;
         user.password = password;
         user.role = role;
+
         // validate.
-        const validateOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validateOpt);
+        const validationOpt = { validationError: { target: false, value: false } };
+        const errors = await validate(user, validationOpt);
         if (errors.length > 0) {
             return res.status(400).json(errors);
         }
-        // TOOO: Hash Password.
         const userRepository = getRepository(User);
-
         try {
             user.hashPassword();
             const users = await userRepository.save(user);
         } catch (error) {
-            res.status(409).json({ message: 'User already exist.' });
+            res.status(409).json({ message: 'Username already exist.' });
         }
         // All Okey
         res.send('User Created.');
     };
 
-    static editUser = async (req: Request, res: Response) => {
+    static edit = async (req: Request, res: Response) => {
         let user: User;
         const { id } = req.params;
         const { username, role } = req.body;
@@ -67,10 +68,10 @@ export class UserController {
             user.username = username;
             user.role = role;
         } catch (error) {
-            res.status(404).json({ message: 'User not Found' });
+            res.status(404).json({ message: 'User not found.' });
         }
-        const validateOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validateOpt);
+        const validationOpt = { validationError: { target: false, value: false } };
+        const errors = await validate(user, validationOpt);
         if (errors.length > 0) {
             return res.status(400).json(errors);
         }
@@ -78,29 +79,29 @@ export class UserController {
         try {
             await userRepository.save(user);
         } catch (error) {
-            res.status(409).json({ message: 'User already in use.' });
+            res.status(409).json({ message: 'Username already in use.' });
         }
         // All Okey
-        res.status(201).json('User Update.');
+        res.status(201).json({ message: 'User update.' });
     };
 
-    static deleteUser = async (req: Request, res: Response) => {
+    static delete = async (req: Request, res: Response) => {
         const { id } = req.params;
         const userRepository = getRepository(User);
         let user: User;
         try {
             user = await userRepository.findOneOrFail(id);
         } catch (error) {
-            res.status(404).json({ message: 'User not Found.' });
+            res.status(404).json({ message: 'User not found.' });
         }
         let result: any;
         try {
             result = await userRepository.delete(id);
         } catch (error) {
-            res.status(404).json({ message: 'User not Deleted.' });
+            res.status(404).json({ message: 'User not deleted.' });
         }
         // All Okey
-        res.status(201).json('User Deleted.');
+        res.status(201).json('User deleted.');
     };
 }
 export default UserController;
