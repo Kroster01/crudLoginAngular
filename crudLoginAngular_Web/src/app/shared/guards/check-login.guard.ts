@@ -6,7 +6,7 @@ import { AuthService } from '@auth/auth.service';
 import { take, map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CheckLoginGuard implements CanActivate {
   constructor(private authSvc: AuthService) {}

@@ -13,7 +13,7 @@ import { Roles, UserResponse } from '@app/shared/models/user.interface';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin = null;
@@ -23,9 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
-  constructor(
-    private authSvc: AuthService
-    ) {}
+  constructor(private authSvc: AuthService) {}
 
   ngOnInit(): void {
     this.authSvc.user$

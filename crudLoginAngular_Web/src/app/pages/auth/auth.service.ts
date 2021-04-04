@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 const helper = new JwtHelperService();
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private user = new BehaviorSubject<UserResponse>(null);
@@ -19,7 +19,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
   }
-
   get user$(): Observable<UserResponse> {
     return this.user.asObservable();
   }
@@ -27,7 +26,6 @@ export class AuthService {
   get userValue(): UserResponse {
     return this.user.getValue();
   }
-
   login(authData: User): Observable<UserResponse | void> {
     return this.http
       .post<UserResponse>(`${environment.API_URL}/auth/login`, authData)
