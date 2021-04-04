@@ -26,11 +26,11 @@ const myModules = [
   MatSortModule,
   MatDialogModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
 ];
 
 @NgModule({
   imports: [...myModules],
-  exports: [...myModules]
+  exports: [...myModules],
 })
-export class MaterialModule { }
+export class MaterialModule {}

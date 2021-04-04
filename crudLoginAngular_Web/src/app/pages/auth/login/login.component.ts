@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseFormUser } from '@app/shared/utils/base-form-user';
+
+import { BaseFormUser } from '@shared/utils/base-form-user';
 import { AuthService } from '@auth/auth.service';
 import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
