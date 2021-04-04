@@ -4,7 +4,7 @@
     <span class="nav-link">Dashboard</span>
   </a>
 
-  <a mat-list-item routerLink="/admin/users">
+  <a *ngIf="isAdmin === 'admin'" mat-list-item routerLink="/admin/users">
     <mat-icon>people</mat-icon>
     <span class="nav-link">Users</span>
   </a>
