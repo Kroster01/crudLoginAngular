@@ -40,4 +40,9 @@ ng g m pages/notFound -m=app --route notFound
 
 ng g m pages/admin -m=app --route admin
 ng g m pages/auth/login -m=app --route login
+ng g m shared/components/sidebar -m=app
+ng g c shared/components/sidebar -m=sidebar
 
+npm i @auth0/angular-jwt
+
+ng g g shared/guards/checkLogin --implements CanActivate

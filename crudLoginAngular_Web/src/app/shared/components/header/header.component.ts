@@ -1,4 +1,3 @@
-//import { UserResponse } from './../../models/user.interface';
 import {
   Component,
   OnInit,
@@ -7,9 +6,9 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-//import { AuthService } from '@auth/auth.service';
+import { AuthService } from '@auth/auth.service';
 import { takeUntil } from 'rxjs/operators';
-//import { Roles } from '@app/shared/models/user.interface';
+import { Roles, UserResponse } from '@app/shared/models/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -25,16 +24,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleSidenav = new EventEmitter<void>();
 
   constructor(
-    //private authSvc: AuthService
+    private authSvc: AuthService
     ) {}
 
   ngOnInit(): void {
-    /*this.authSvc.user$
+    this.authSvc.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserResponse) => {
         this.isLogged = true;
         this.isAdmin = user?.role;
-      });*/
+      });
   }
 
   ngOnDestroy(): void {
@@ -47,6 +46,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    //this.authSvc.logout();
+    this.authSvc.logout();
   }
 }
