@@ -1,107 +1,111 @@
 import { getRepository } from 'typeorm';
 import { Request, Response } from 'express';
-import { User } from '../entity/User';
+import { Users } from '../entity/Users';
 import { validate } from 'class-validator';
 
 export class UserController {
+  static getAll = async (req: Request, res: Response) => {
+    const userRepository = getRepository(Users);
+    let users;
 
-    static getAll = async (req: Request, res: Response) => {
-        const userRepository = getRepository(User);
-        let users;
+    try {
+      users = await userRepository.find({ select: ['id', 'username', 'role'] });
+    } catch (e) {
+      res.status(404).json({ message: 'Somenthing goes wrong!' });
+    }
 
-        try {
-            users = await userRepository.find({ select: ['id', 'username', 'role'] });
-        } catch (error) {
-            res.status(404).json({ message: 'Something goes wrong.' });
-        }
+    if (users.length > 0) {
+      res.send(users);
+    } else {
+      res.status(404).json({ message: 'Not result' });
+    }
+  };
 
-        if (users.length > 0) {
-            res.send(users);
-        } else {
-            res.status(404).json({ message: 'Not result.' });
-        }
-    };
+  static getById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const userRepository = getRepository(Users);
+    try {
+      const user = await userRepository.findOneOrFail(id);
+      res.send(user);
+    } catch (e) {
+      res.status(404).json({ message: 'Not result' });
+    }
+  };
 
-    static getById = async (req: Request, res: Response) => {
-        const { id } = req.body;
-        const userRepository = getRepository(User);
-        try {
-            const user = await userRepository.findOneOrFail(id);
-            res.send(user);
-        } catch (error) {
-            res.status(404).json({ message: 'Not result.' });
-        }
-    };
+  static new = async (req: Request, res: Response) => {
+    const { username, password, role } = req.body;
+    const user = new Users();
 
-    static new = async (req: Request, res: Response) => {
-        const { username, password, role } = req.body;
-        const user = new User();
+    user.username = username;
+    user.password = password;
+    user.role = role;
 
-        user.username = username;
-        user.password = password;
-        user.role = role;
+    // Validate
+    const validationOpt = { validationError: { target: false, value: false } };
+    const errors = await validate(user, validationOpt);
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
 
-        // validate.
-        const validationOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validationOpt);
-        if (errors.length > 0) {
-            return res.status(400).json(errors);
-        }
-        const userRepository = getRepository(User);
-        try {
-            user.hashPassword();
-            const users = await userRepository.save(user);
-        } catch (error) {
-            res.status(409).json({ message: 'Username already exist.' });
-        }
-        // All Okey
-        res.send('User Created.');
-    };
+    // TODO: HASH PASSWORD
 
-    static edit = async (req: Request, res: Response) => {
-        let user: User;
-        const { id } = req.params;
-        const { username, role } = req.body;
-        const userRepository = getRepository(User);
-        try {
-            user = await userRepository.findOneOrFail(id);
-            user.username = username;
-            user.role = role;
-        } catch (error) {
-            res.status(404).json({ message: 'User not found.' });
-        }
-        const validationOpt = { validationError: { target: false, value: false } };
-        const errors = await validate(user, validationOpt);
-        if (errors.length > 0) {
-            return res.status(400).json(errors);
-        }
+    const userRepository = getRepository(Users);
+    try {
+      user.hashPassword();
+      await userRepository.save(user);
+    } catch (e) {
+      return res.status(409).json({ message: 'Username already exist' });
+    }
+    // All ok
+    res.send('User created');
+  };
 
-        try {
-            await userRepository.save(user);
-        } catch (error) {
-            res.status(409).json({ message: 'Username already in use.' });
-        }
-        // All Okey
-        res.status(201).json({ message: 'User update.' });
-    };
+  static edit = async (req: Request, res: Response) => {
+    let user;
+    const { id } = req.params;
+    const { username, role } = req.body;
 
-    static delete = async (req: Request, res: Response) => {
-        const { id } = req.params;
-        const userRepository = getRepository(User);
-        let user: User;
-        try {
-            user = await userRepository.findOneOrFail(id);
-        } catch (error) {
-            res.status(404).json({ message: 'User not found.' });
-        }
-        let result: any;
-        try {
-            result = await userRepository.delete(id);
-        } catch (error) {
-            res.status(404).json({ message: 'User not deleted.' });
-        }
-        // All Okey
-        res.status(201).json('User deleted.');
-    };
+    const userRepository = getRepository(Users);
+    // Try get user
+    try {
+      user = await userRepository.findOneOrFail(id);
+      user.username = username;
+      user.role = role;
+    } catch (e) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const validationOpt = { validationError: { target: false, value: false } };
+    const errors = await validate(user, validationOpt);
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
+
+    // Try to save user
+    try {
+      await userRepository.save(user);
+    } catch (e) {
+      return res.status(409).json({ message: 'Username already in use' });
+    }
+
+    res.status(201).json({ message: 'User update' });
+  };
+
+  static delete = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const userRepository = getRepository(Users);
+    let user: Users;
+
+    try {
+      user = await userRepository.findOneOrFail(id);
+    } catch (e) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Remove user
+    userRepository.delete(id);
+    res.status(201).json({ message: ' User deleted' });
+  };
 }
+
 export default UserController;
