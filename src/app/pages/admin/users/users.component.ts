@@ -52,7 +52,7 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onOpenModal(user = {}): void {
     console.log('User->', user);
-    let dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open(ModalComponent, {
       height: '400px',
       width: '600px',
       hasBackdrop: false,

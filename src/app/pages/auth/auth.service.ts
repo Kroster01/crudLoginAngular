@@ -29,9 +29,9 @@ export class AuthService {
   }
 
   /**
-   *
-   * @param authData
-   * @returns
+   * Llamada a pirest de login.
+   * @param authData datos del formulario.
+   * @returns recuperar los dato del usuarios relebantes al login.
    */
   login(authData: User): Observable<UserResponse | void> {
     return this.http
@@ -75,8 +75,8 @@ export class AuthService {
   }
 
   /**
-   *
-   * @param user
+   * realiza la persistencia de datos en localstorage.
+   * @param user datos del usuario a persistir.
    */
   private saveLocalStorage(user: UserResponse): void {
     const { userId, message, ...rest } = user;

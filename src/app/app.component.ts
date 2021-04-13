@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  title = 'crudLoginAngular';
   opened = false;
   private destroy$ = new Subject<any>();
 
