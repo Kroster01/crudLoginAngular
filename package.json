@@ -5,14 +5,13 @@
   "description": "Awesome project developed with TypeORM.",
   "scripts": {
     "ng": "ng",
-    "startServ": "ng serve",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "server": "\"cd ..\" && cd crudLoginAngularAPI && npm run start",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
-    "start": "concurrently \"npm run startServ\""
+    "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "dependencies": {
     "@angular/animations": "~11.2.8",
