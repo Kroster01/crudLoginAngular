@@ -19,6 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
   }
+
   get user$(): Observable<UserResponse> {
     return this.user.asObservable();
   }
@@ -26,6 +27,12 @@ export class AuthService {
   get userValue(): UserResponse {
     return this.user.getValue();
   }
+
+  /**
+   *
+   * @param authData
+   * @returns
+   */
   login(authData: User): Observable<UserResponse | void> {
     return this.http
       .post<UserResponse>(`${environment.API_URL}/auth/login`, authData)
@@ -39,13 +46,20 @@ export class AuthService {
       );
   }
 
-  // TODO: Crear un metodo de logout a nivel de api, para que se cierre la sesión desde el server.
+  //
+  /**
+   *
+   * TODO: Crear un metodo de logout a nivel de api, para que se cierre la sesión desde el server.
+   */
   logout(): void {
     localStorage.removeItem('user');
     this.user.next(null);
     this.router.navigate(['/login']);
   }
 
+  /**
+   *
+   */
   private checkToken(): void {
     const user = JSON.parse(localStorage.getItem('user')) || null;
 
@@ -60,11 +74,18 @@ export class AuthService {
     }
   }
 
+  /**
+   *
+   * @param user
+   */
   private saveLocalStorage(user: UserResponse): void {
     const { userId, message, ...rest } = user;
     localStorage.setItem('user', JSON.stringify(rest));
   }
 
+  /**
+   *
+   */
   private handlerError(err): Observable<never> {
     let errorMessage = 'An errror occured retrienving data';
     if (err) {

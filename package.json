@@ -1,6 +1,8 @@
 {
-  "name": "crud-login-angular-Web",
+  "name": "crudloginangularweb",
   "version": "0.0.0",
+  "private": true,
+  "description": "Awesome project developed with TypeORM.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,10 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server": "\"cd ..\" && cd crudLoginAngular_API && npm run dev",
+    "server": "\"cd ..\" && cd crudLoginAngularAPI && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run start\""
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.8",
     "@angular/cdk": "~11.2.7",
@@ -27,7 +28,8 @@
     "concurrently": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3"
+    "zone.js": "~0.11.3",
+    "typescript": "^4.1.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.7",
@@ -46,7 +48,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "^9.1.1",
-    "tslint": "~6.1.0",
-    "typescript": "^4.1.5"
+    "tslint": "~6.1.0"
   }
 }

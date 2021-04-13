@@ -26,6 +26,7 @@ const routes: Routes = [
       import('./pages/auth/login/login.module').then((m) => m.LoginModule),
     canActivate: [CheckLoginGuard],
   },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' } // cuando la ruta no existe
 ];
 
 @NgModule({
