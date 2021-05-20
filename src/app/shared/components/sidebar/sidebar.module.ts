@@ -12,4 +12,4 @@ import { MaterialModule } from '@app/material.module';
   exports: [SidebarComponent],
   providers: [UtilsService],
 })
-export class SidebarModule {}
+export class SidebarModule { }

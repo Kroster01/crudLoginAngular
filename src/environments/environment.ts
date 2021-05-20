@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_URL: 'https://crudloginangular-apih.herokuapp.com',
+  FENIX_URL_INCURRIDO: 'http://localhost:3000'
 };
 
 /*

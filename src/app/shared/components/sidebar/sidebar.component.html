@@ -9,6 +9,11 @@
     <span class="nav-link">Users</span>
   </a>
 
+  <a *ngIf="isAdmin === 'admin'" mat-list-item routerLink="/incurrido">
+    <mat-icon>people</mat-icon>
+    <span class="nav-link">Incurrido</span>
+  </a>
+
   <a mat-list-item (click)="onExit()">
     <mat-icon>exit_to_app</mat-icon>
     <span class="nav-link">Exit</span>

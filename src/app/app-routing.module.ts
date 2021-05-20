@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CheckLoginGuard } from '@shared/guards/check-login.guard';
+import { IncurridoModule } from 'src/app/sections/incurrido/incurrido.module';
+
 const routes: Routes = [
   {
     path: 'home',
@@ -26,6 +28,11 @@ const routes: Routes = [
       import('./pages/auth/login/login.module').then((m) => m.LoginModule),
     canActivate: [CheckLoginGuard],
   },
+  {
+    path: 'incurrido',
+    loadChildren: () =>
+      import('src/app/sections/incurrido/incurrido.module').then((m) => m.IncurridoModule),
+  },
   { path: '**', redirectTo: 'login', pathMatch: 'full' } // cuando la ruta no existe
 ];
 
@@ -33,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

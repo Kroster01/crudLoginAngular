@@ -9,6 +9,7 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import { FooterComponent } from '@shared/components/footer/footer.component';
 import { MaterialModule } from '@app/material.module';
 import { SidebarModule } from '@shared/components/sidebar/sidebar.module';
+import { IonicModule } from '@ionic/angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AdminInterceptor } from '@shared/interceptors/admin-interceptor';
@@ -23,10 +24,11 @@ import { AdminInterceptor } from '@shared/interceptors/admin-interceptor';
     SidebarModule,
     HttpClientModule,
     ReactiveFormsModule,
+    IonicModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

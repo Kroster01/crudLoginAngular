@@ -33,4 +33,4 @@ const myModules = [
   imports: [...myModules],
   exports: [...myModules],
 })
-export class MaterialModule {}
+export class MaterialModule { }

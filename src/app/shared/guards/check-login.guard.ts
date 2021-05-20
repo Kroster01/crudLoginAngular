@@ -9,7 +9,7 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CheckLoginGuard implements CanActivate {
-  constructor(private authSvc: AuthService) {}
+  constructor(private authSvc: AuthService) { }
 
   canActivate(): Observable<boolean> {
     return this.authSvc.user$.pipe(

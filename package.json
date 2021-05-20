@@ -5,7 +5,7 @@
   "description": "Awesome project developed with TypeORM.",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "start2": "node server.js",
     "serve": "ng serve",
     "build": "ng build",
@@ -34,6 +34,7 @@
     "@angular/platform-browser-dynamic": "~11.2.8",
     "@angular/router": "~11.2.8",
     "@auth0/angular-jwt": "^5.0.2",
+    "@ionic/angular": "^5.6.7",
     "concurrently": "^6.0.0",
     "express": "^4.17.1",
     "rxjs": "~6.6.0",

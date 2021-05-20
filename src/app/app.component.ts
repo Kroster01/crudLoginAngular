@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   opened = false;
   private destroy$ = new Subject<any>();
 
-  constructor(private utilsSvc: UtilsService) {}
+  constructor(private utilsSvc: UtilsService) { }
 
   ngOnInit(): void {
     this.utilsSvc.sidebarOpened$
